@@ -5,7 +5,7 @@
 \title{plotFunctions}
 \usage{
 plotFunctions(fun, params = NULL, n = 101, x = c(1, 5), size = 0.5,
-  end_spaces_ratio = 0)
+  end_spaces_ratio = 0, end_label = TRUE)
 }
 \arguments{
 \item{fun}{要绘制的函数}
@@ -19,6 +19,8 @@ plotFunctions(fun, params = NULL, n = 101, x = c(1, 5), size = 0.5,
 \item{size}{线宽}
 
 \item{end_spaces_ratio}{最右侧留空百分比（占x轴的总长度）}
+
+\item{end_label}{是否在曲线末端显示参数}
 }
 \value{
 ggplot2对象

@@ -8,6 +8,7 @@
 #' @param x x的区间
 #' @param size 线宽
 #' @param end_spaces_ratio 最右侧留空百分比（占x轴的总长度）
+#' @param end_label 是否在曲线末端显示参数
 #' @import ggplot2
 #' @import directlabels
 #'
@@ -16,7 +17,7 @@
 #'
 #' @examples
 plotFunctions = function (fun, params = NULL, n = 101, x = c(1, 5), size = 0.5,
-                          end_spaces_ratio = 0) {
+                          end_spaces_ratio = 0, end_label = TRUE) {
 
   # x_points 是函数在指定范围内的取值点。
   # 例如n = 101, x = c(1, 5)，就是在1 ~ 5内取 101个点。
@@ -31,10 +32,14 @@ plotFunctions = function (fun, params = NULL, n = 101, x = c(1, 5), size = 0.5,
     df = makeDfWithParams(fun, params, x_points)
   }
 
-  ggplot(df, aes(x = x, y = y, group = params, color = params)) +
-    geom_line(size = size) + xlim(c(x[1], x[2] + (x[2] -  x[1]) * end_spaces_ratio)) +
-    geom_dl(aes(label = (params),  color = params), method = list(dl.trans(x = x + 0.1), "last.qp")) +
+  p = ggplot(df, aes(x = x, y = y, group = params, color = params)) +
+    geom_line(size = size) + xlim(c(x[1], x[2] + (x[2] - x[1]) * end_spaces_ratio)) +
     theme_textbook()
 
+  if (end_label) {
+    p = p + geom_dl(aes(label = (params), color = params), method = list(dl.trans(x = x + 0.1), "last.qp")) 
+  }
+  
+  p + coord_fixed()
 }
 

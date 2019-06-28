@@ -13,7 +13,12 @@
 #' @examples
 makeDfWithParams = function(fun, params, x_points) {
   params = tibble::as_tibble(params)
-  df = MyUtils::rowMap(params, function(pp) {
+
+  result = NULL
+
+
+  for (i in 1:nrow(params)) {
+    pp = params[i,]
     y_points = do.call(fun, c(list(x = x_points), as.list(pp)))
 
     p_names = names(params)
@@ -34,7 +39,12 @@ makeDfWithParams = function(fun, params, x_points) {
     }
 
     #params_str = glue('${params_str}$')
-    data.frame(x = x_points, y = y_points, params = params_str)
-  })
-  df
+    df = data.frame(x = x_points, y = y_points, params = params_str)
+
+    result = rbind(result, df)
+  }
+
+  result
 }
+
+

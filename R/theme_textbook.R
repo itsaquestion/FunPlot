@@ -10,5 +10,6 @@ theme_textbook = function() {
   theme_bw() +
     theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
-    theme(plot.margin = unit(c(1, 0.5, 0, 0), "cm")) + theme(legend.position="none")
+    theme(plot.margin = unit(c(1, 0.5, 0, 0), "cm")) + theme(legend.position = "none") 
+
 }
